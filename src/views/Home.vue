@@ -53,8 +53,7 @@
                 axios
                     .post(this.APIdomain + 'face', formData, config)
                     .then(function (response) {
-                        const response_json = JSON.parse(response['data']);
-                        self.response = response_json;
+                        self.response = JSON.parse(response['data']);
                     })
                     .catch(function (error) {
                         console.log(error);
