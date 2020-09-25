@@ -3,14 +3,14 @@
     <h1>顔認識システム</h1>
     <div>
       <div id="button_block">
-        <label class="file_select" @click="response_image = null"><span>ファイルを選択してください</span><input type="file" ref="file" @change="setImage"></label>
+        <label class="file_select" @click="response.img = null"><span>ファイルを選択してください</span><input type="file" ref="file" @change="setImage"></label>
       </div>
       <div id="action_block">
-        <p v-if="response_image">顔検出数：{{ response_people }}</p>
+        <p v-if="response.img">顔検出数：{{ response.people }}</p>
         <input v-else @click="upload" type="button" value="検出">
       </div>
       <div id="target_block">
-        <img v-if="response_image" :src="APIdomain + response_image">
+        <img v-if="response.img" :src="APIdomain + response.img">
         <img v-else :src="this.target_image">
       </div>
     </div>
@@ -24,22 +24,19 @@
         data: function () {
             return {
                 target_image: "",
-                response_image: "",
-                response_people: 0,
+                response: "",
                 name: "",
                 APIdomain: 'http://127.0.0.1:5000/',
             }
         },
         methods: {
-            setImage() {
+            setImage() {  // 画像のプレビュー関数
                 const files = this.$refs.file;
                 const fileImg = files.files[0];
                 // 選択された File の情報を保存しておく
-                console.log(this.target_image);
                 if (fileImg.type.startsWith("image/")) {
                     this.target_image = window.URL.createObjectURL(fileImg);
                     this.name = fileImg.name;
-                    this.type = fileImg.type;
                 }
             },
             upload: function () { // アップロード処理
@@ -52,15 +49,12 @@
                     }
                 };
                 const self = this;
-                console.log(this.target_image);
-                console.log(formData);
+                // APIへPOST
                 axios
                     .post(this.APIdomain + 'face', formData, config)
                     .then(function (response) {
-                        console.log(response);
                         const response_json = JSON.parse(response['data']);
-                        self.response_image = response_json.img;
-                        self.response_people = response_json.people;
+                        self.response = response_json;
                     })
                     .catch(function (error) {
                         console.log(error);

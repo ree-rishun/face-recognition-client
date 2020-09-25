@@ -1,24 +1,29 @@
-# front
+# Flask x OpenCV x Vue.js による顔検出Webアプリ
 
-## Project setup
+## index
+### API側のリポジトリ
+
+
+### 紹介ブログのリンク
+
+
+## 利用例
+
+
+
+## 利用手順
+まずは、必要なパッケージのインストールを以下のコマンドで行ってください。
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+以下のコマンドで開発者用のコンパイルが行えます。
 ```
 npm run serve
 ```
 
-### Compiles and minifies for production
+ビルドを行う時は以下のコマンドで行ってください。
 ```
 npm run build
 ```
 
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
